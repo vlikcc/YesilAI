@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="yesilai_background">#f9fafb</color>
+    <color name="yesilai_border">#e5e7eb</color>
+    <color name="yesilai_bot_bubble">#d1fae5</color>
+    <color name="yesilai_primary">#10b981</color>
+    <color name="yesilai_primary_dark">#059669</color>
+    <color name="yesilai_text_primary">#1f2937</color>
+    <color name="yesilai_text_secondary">#6b7280</color>
+    <string name="app_name">YesilAI</string>
+    <string name="default_web_client_id" translatable="false">360765057146-8fdftkhgemqnbuc3s5oikbr77kra8op7.apps.googleusercontent.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">360765057146</string>
+    <string name="google_api_key" translatable="false">AIzaSyA8oXA4zD6KJu_qoBTeK2O4WM0PHW4jo18</string>
+    <string name="google_app_id" translatable="false">1:360765057146:android:008d447578da27068273c3</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyA8oXA4zD6KJu_qoBTeK2O4WM0PHW4jo18</string>
+    <string name="google_storage_bucket" translatable="false">yesilai-215f2.firebasestorage.app</string>
+    <string name="project_id" translatable="false">yesilai-215f2</string>
+    <style name="Theme.YesilAI" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:colorPrimary">@color/yesilai_primary</item>
+        <item name="android:colorPrimaryDark">@color/yesilai_primary_dark</item>
+        <item name="android:colorAccent">@color/yesilai_primary</item>
+        <item name="android:windowBackground">@color/yesilai_background</item>
+        <item name="android:statusBarColor">@color/yesilai_background</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+</resources>

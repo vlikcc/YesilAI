@@ -1,0 +1,66 @@
+[
+    {
+        "merged": "com.yesilai.app-merged_res-62:/mipmap-xhdpi_ic_launcher_round.png.flat",
+        "source": "com.yesilai.app-main-64:/mipmap-xhdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "com.yesilai.app-merged_res-62:/drawable_ic_google.xml.flat",
+        "source": "com.yesilai.app-main-64:/drawable/ic_google.xml"
+    },
+    {
+        "merged": "com.yesilai.app-merged_res-62:/drawable_yesil_ai_afis.png.flat",
+        "source": "com.yesilai.app-main-64:/drawable/yesil_ai_afis.png"
+    },
+    {
+        "merged": "com.yesilai.app-merged_res-62:/mipmap-xxhdpi_ic_launcher_round.png.flat",
+        "source": "com.yesilai.app-main-64:/mipmap-xxhdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "com.yesilai.app-merged_res-62:/mipmap-xxxhdpi_ic_launcher.png.flat",
+        "source": "com.yesilai.app-main-64:/mipmap-xxxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.yesilai.app-merged_res-62:/mipmap-mdpi_ic_launcher.png.flat",
+        "source": "com.yesilai.app-main-64:/mipmap-mdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.yesilai.app-merged_res-62:/mipmap-hdpi_ic_launcher_round.png.flat",
+        "source": "com.yesilai.app-main-64:/mipmap-hdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "com.yesilai.app-merged_res-62:/mipmap-xxxhdpi_ic_launcher_round.png.flat",
+        "source": "com.yesilai.app-main-64:/mipmap-xxxhdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "com.yesilai.app-merged_res-62:/mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "com.yesilai.app-main-64:/mipmap-xhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.yesilai.app-merged_res-62:/xml_backup_rules.xml.flat",
+        "source": "com.yesilai.app-main-64:/xml/backup_rules.xml"
+    },
+    {
+        "merged": "com.yesilai.app-merged_res-62:/xml_data_extraction_rules.xml.flat",
+        "source": "com.yesilai.app-main-64:/xml/data_extraction_rules.xml"
+    },
+    {
+        "merged": "com.yesilai.app-merged_res-62:/mipmap-mdpi_ic_launcher_round.png.flat",
+        "source": "com.yesilai.app-main-64:/mipmap-mdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "com.yesilai.app-merged_res-62:/mipmap-hdpi_ic_launcher.png.flat",
+        "source": "com.yesilai.app-main-64:/mipmap-hdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.yesilai.app-merged_res-62:/mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "com.yesilai.app-main-64:/mipmap-xxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.yesilai.app-merged_res-62:/drawable_yesil_ai.png.flat",
+        "source": "com.yesilai.app-main-64:/drawable/yesil_ai.png"
+    },
+    {
+        "merged": "com.yesilai.app-merged_res-62:/drawable_yesil_ai_koyu.png.flat",
+        "source": "com.yesilai.app-main-64:/drawable/yesil_ai_koyu.png"
+    }
+]

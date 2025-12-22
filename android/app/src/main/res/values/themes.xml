@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.YesilAI" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:colorPrimary">@color/yesilai_primary</item>
+        <item name="android:colorPrimaryDark">@color/yesilai_primary_dark</item>
+        <item name="android:colorAccent">@color/yesilai_primary</item>
+        <item name="android:windowBackground">@color/yesilai_background</item>
+        <item name="android:statusBarColor">@color/yesilai_background</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+</resources>

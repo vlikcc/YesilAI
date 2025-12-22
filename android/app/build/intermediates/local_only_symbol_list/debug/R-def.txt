@@ -1,0 +1,28 @@
+R_DEF: Internal format may change without notice
+local
+color black
+color white
+color yesilai_background
+color yesilai_border
+color yesilai_bot_bubble
+color yesilai_primary
+color yesilai_primary_dark
+color yesilai_text_primary
+color yesilai_text_secondary
+drawable ic_google
+drawable yesil_ai
+drawable yesil_ai_afis
+drawable yesil_ai_koyu
+mipmap ic_launcher
+mipmap ic_launcher_round
+string app_name
+string default_web_client_id
+string gcm_defaultSenderId
+string google_api_key
+string google_app_id
+string google_crash_reporting_api_key
+string google_storage_bucket
+string project_id
+style Theme.YesilAI
+xml backup_rules
+xml data_extraction_rules

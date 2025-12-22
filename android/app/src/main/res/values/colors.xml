@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="yesilai_primary">#10b981</color>
+    <color name="yesilai_primary_dark">#059669</color>
+    <color name="yesilai_background">#f9fafb</color>
+    <color name="yesilai_text_primary">#1f2937</color>
+    <color name="yesilai_text_secondary">#6b7280</color>
+    <color name="yesilai_bot_bubble">#d1fae5</color>
+    <color name="yesilai_border">#e5e7eb</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+</resources>
