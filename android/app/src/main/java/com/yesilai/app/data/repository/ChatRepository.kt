@@ -1,7 +1,15 @@
 package com.yesilai.app.data.repository
 
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.yesilai.app.data.api.ChatApiService
 import com.yesilai.app.data.api.ChatRequest
+import com.yesilai.app.data.model.ChatMessage
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.tasks.await
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -12,6 +20,11 @@ import java.util.concurrent.TimeUnit
 
 class ChatRepository {
     private val apiService: ChatApiService
+    private val db = FirebaseFirestore.getInstance()
+    private val auth = FirebaseAuth.getInstance()
+    
+    private val userId: String?
+        get() = auth.currentUser?.uid
     
     init {
         val logging = HttpLoggingInterceptor().apply {
@@ -61,6 +74,79 @@ class ChatRepository {
             }
         } catch (e: Exception) {
             Result.failure(e)
+        }
+    }
+    
+    suspend fun saveMessage(message: ChatMessage) {
+        val uid = userId ?: return
+        
+        val messageData = hashMapOf(
+            "text" to message.text,
+            "sender" to message.sender.name,
+            "timestamp" to message.timestamp
+        )
+        
+        try {
+            db.collection("users").document(uid)
+                .collection("messages")
+                .add(messageData)
+                .await()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+    }
+    
+    suspend fun loadChatHistory(): List<ChatMessage> {
+        val uid = userId ?: return emptyList()
+        
+        return try {
+            val snapshot = db.collection("users").document(uid)
+                .collection("messages")
+                .orderBy("timestamp", Query.Direction.ASCENDING)
+                .limit(100)
+                .get()
+                .await()
+            
+            snapshot.documents.mapNotNull { doc ->
+                val text = doc.getString("text") ?: return@mapNotNull null
+                val senderName = doc.getString("sender") ?: return@mapNotNull null
+                val timestamp = doc.getLong("timestamp") ?: System.currentTimeMillis()
+                
+                val sender = try {
+                    ChatMessage.MessageSender.valueOf(senderName)
+                } catch (e: Exception) {
+                    ChatMessage.MessageSender.BOT
+                }
+                
+                ChatMessage(
+                    id = timestamp,
+                    text = text,
+                    sender = sender,
+                    timestamp = timestamp
+                )
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+            emptyList()
+        }
+    }
+    
+    suspend fun clearChatHistory() {
+        val uid = userId ?: return
+        
+        try {
+            val snapshot = db.collection("users").document(uid)
+                .collection("messages")
+                .get()
+                .await()
+            
+            val batch = db.batch()
+            snapshot.documents.forEach { doc ->
+                batch.delete(doc.reference)
+            }
+            batch.commit().await()
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
     }
 }

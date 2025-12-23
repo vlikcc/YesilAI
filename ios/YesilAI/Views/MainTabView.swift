@@ -8,21 +8,24 @@ struct MainTabView: View {
         TabView(selection: $selectedTab) {
             ChatView(navigationManager: navigationManager)
                 .tabItem {
-                    Text(selectedTab == 0 ? "💬" : "💭")
+                    Image(systemName: selectedTab == 0 ? "message.fill" : "message")
+                        .font(.system(size: 24))
                     Text("Sohbet")
                 }
                 .tag(0)
             
-            ProfileView()
+            ProfileView(navigationManager: navigationManager)
                 .tabItem {
-                    Text(selectedTab == 1 ? "👤" : "👥")
+                    Image(systemName: selectedTab == 1 ? "person.fill" : "person")
+                        .font(.system(size: 24))
                     Text("Profil")
                 }
                 .tag(1)
             
-            SettingsView()
+            SettingsView(navigationManager: navigationManager)
                 .tabItem {
-                    Text(selectedTab == 2 ? "⚙️" : "🔧")
+                    Image(systemName: selectedTab == 2 ? "gearshape.fill" : "gearshape")
+                        .font(.system(size: 24))
                     Text("Ayarlar")
                 }
                 .tag(2)

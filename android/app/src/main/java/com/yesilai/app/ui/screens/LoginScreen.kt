@@ -28,11 +28,15 @@ import com.yesilai.app.R
 import com.yesilai.app.data.repository.AuthRepository
 import com.yesilai.app.ui.theme.*
 import kotlinx.coroutines.launch
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.tasks.await
 
 @Composable
 fun LoginScreen(
     onNavigateToRegister: () -> Unit,
-    onNavigateToMain: () -> Unit
+    onNavigateToMain: () -> Unit,
+    onNavigateToProfileCompletion: () -> Unit = {}
 ) {
     val authRepository = remember { AuthRepository() }
     val scope = rememberCoroutineScope()
@@ -130,7 +134,7 @@ fun LoginScreen(
             OutlinedTextField(
                 value = email,
                 onValueChange = { email = it },
-                placeholder = { Text("E-posta Adresi", color = YesilTextSecondary) },
+                placeholder = { Text("E-posta Adresi", color = YesilTextPlaceholder) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 32.dp),
@@ -150,7 +154,7 @@ fun LoginScreen(
             OutlinedTextField(
                 value = password,
                 onValueChange = { password = it },
-                placeholder = { Text("Şifre", color = YesilTextSecondary) },
+                placeholder = { Text("Şifre", color = YesilTextPlaceholder) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 16.dp),
@@ -228,7 +232,11 @@ fun LoginScreen(
                 onClick = {
                     scope.launch {
                         if (authRepository.signInWithGoogle(context)) {
-                            onNavigateToMain()
+                            // Check if profile is complete
+                            checkProfileAndNavigate(
+                                onComplete = onNavigateToMain,
+                                onIncomplete = onNavigateToProfileCompletion
+                            )
                         }
                     }
                 },
@@ -276,3 +284,33 @@ fun LoginScreen(
     }
 }
 
+private suspend fun checkProfileAndNavigate(
+    onComplete: () -> Unit,
+    onIncomplete: () -> Unit
+) {
+    val userId = FirebaseAuth.getInstance().currentUser?.uid
+    if (userId == null) {
+        onComplete()
+        return
+    }
+    
+    try {
+        val db = FirebaseFirestore.getInstance()
+        val document = db.collection("users").document(userId).get().await()
+        
+        if (document.exists()) {
+            val firstName = document.getString("firstName") ?: ""
+            val lastName = document.getString("lastName") ?: ""
+            
+            if (firstName.isNotEmpty() && lastName.isNotEmpty()) {
+                onComplete()
+            } else {
+                onIncomplete()
+            }
+        } else {
+            onIncomplete()
+        }
+    } catch (e: Exception) {
+        onIncomplete()
+    }
+}

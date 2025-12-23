@@ -1,10 +1,14 @@
 import SwiftUI
+import FirebaseFirestore
+import FirebaseAuth
 
 struct LoginView: View {
     @ObservedObject var navigationManager: NavigationManager
     @StateObject private var authManager = AuthManager.shared
     @State private var email = ""
     @State private var password = ""
+    
+    private let db = Firestore.firestore()
     
     var body: some View {
         ScrollView {
@@ -52,7 +56,7 @@ struct LoginView: View {
                     }
                     
                     // Email Input
-                    TextField("E-posta Adresi", text: $email)
+                    TextField("", text: $email, prompt: Text("E-posta Adresi").foregroundColor(YesilTheme.textPlaceholder))
                         .textFieldStyle(YesilTextFieldStyle())
                         .padding(.top, 32)
                         .keyboardType(.emailAddress)
@@ -61,7 +65,7 @@ struct LoginView: View {
                         .disabled(authManager.isLoading)
                     
                     // Password Input
-                    SecureField("Şifre", text: $password)
+                    SecureField("", text: $password, prompt: Text("Şifre").foregroundColor(YesilTheme.textPlaceholder))
                         .textFieldStyle(YesilTextFieldStyle())
                         .padding(.top, 16)
                         .disabled(authManager.isLoading)
@@ -116,7 +120,7 @@ struct LoginView: View {
                         Button(action: {
                             Task {
                                 if await authManager.signInWithGoogle() {
-                                    navigationManager.navigateToMain()
+                                    await checkProfileAndNavigate()
                                 }
                             }
                         }) {
@@ -143,7 +147,7 @@ struct LoginView: View {
                         Button(action: {
                             Task {
                                 if await authManager.signInWithApple() {
-                                    navigationManager.navigateToMain()
+                                    await checkProfileAndNavigate()
                                 }
                             }
                         }) {
@@ -183,6 +187,33 @@ struct LoginView: View {
         }
         .background(YesilTheme.background)
         .ignoresSafeArea(.all, edges: .bottom)
+    }
+    
+    private func checkProfileAndNavigate() async {
+        guard let userId = Auth.auth().currentUser?.uid else {
+            navigationManager.navigateToMain()
+            return
+        }
+        
+        do {
+            let document = try await db.collection("users").document(userId).getDocument()
+            
+            if document.exists,
+               let data = document.data(),
+               let firstName = data["firstName"] as? String,
+               let lastName = data["lastName"] as? String,
+               !firstName.isEmpty,
+               !lastName.isEmpty {
+                // Profile is complete, go to main
+                navigationManager.navigateToMain()
+            } else {
+                // Profile is incomplete, go to profile completion
+                navigationManager.navigateToProfileCompletion()
+            }
+        } catch {
+            // On error, redirect to profile completion to be safe
+            navigationManager.navigateToProfileCompletion()
+        }
     }
 }
 

@@ -10,7 +10,6 @@
 		11111111111111111111111 /* YesilAIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21111111111111111111111 /* YesilAIApp.swift */; };
 		11111111111111111111112 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21111111111111111111112 /* ContentView.swift */; };
 		11111111111111111111113 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21111111111111111111113 /* Assets.xcassets */; };
-		11111111111111111111120 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 21111111111111111111120 /* GoogleService-Info.plist */; };
 		11111111111111111111114 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21111111111111111111114 /* LoginView.swift */; };
 		11111111111111111111115 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21111111111111111111115 /* RegisterView.swift */; };
 		11111111111111111111116 /* MainTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21111111111111111111116 /* MainTabView.swift */; };
@@ -23,19 +22,20 @@
 		1111111111111111111111D /* ChatAPIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2111111111111111111111D /* ChatAPIService.swift */; };
 		1111111111111111111111E /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2111111111111111111111E /* ChatViewModel.swift */; };
 		1111111111111111111111F /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2111111111111111111111F /* AuthManager.swift */; };
+		11111111111111111111120 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 21111111111111111111120 /* GoogleService-Info.plist */; };
+		11111111111111111111121 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21111111111111111111123 /* User.swift */; };
+		11111111111111111111122 /* ProfileCompletionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21111111111111111111124 /* ProfileCompletionView.swift */; };
 		B6B265862EF964390062B085 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = B6B265852EF964390062B085 /* FirebaseAuth */; };
 		B6B265882EF964390062B085 /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = B6B265872EF964390062B085 /* FirebaseCore */; };
 		B6B265892EF964390062B086 /* GoogleSignIn in Frameworks */ = {isa = PBXBuildFile; productRef = B6B2658A2EF964390062B086 /* GoogleSignIn */; };
 		B6B2658B2EF964390062B087 /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B6B2658C2EF964390062B087 /* GoogleSignInSwift */; };
+		B6B2658E2EF964390062B089 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = B6B2658F2EF964390062B089 /* FirebaseFirestore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		21111111111111111111111 /* YesilAIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YesilAIApp.swift; sourceTree = "<group>"; };
 		21111111111111111111112 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		21111111111111111111113 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		21111111111111111111120 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		21111111111111111111121 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Info.plist"; sourceTree = "<group>"; };
-		21111111111111111111122 /* YesilAI.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "YesilAI.entitlements"; sourceTree = "<group>"; };
 		21111111111111111111114 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		21111111111111111111115 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		21111111111111111111116 /* MainTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabView.swift; sourceTree = "<group>"; };
@@ -48,6 +48,11 @@
 		2111111111111111111111D /* ChatAPIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatAPIService.swift; sourceTree = "<group>"; };
 		2111111111111111111111E /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
 		2111111111111111111111F /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
+		21111111111111111111120 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		21111111111111111111121 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		21111111111111111111122 /* YesilAI.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = YesilAI.entitlements; sourceTree = "<group>"; };
+		21111111111111111111123 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		21111111111111111111124 /* ProfileCompletionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCompletionView.swift; sourceTree = "<group>"; };
 		31111111111111111111111 /* YesilAI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YesilAI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -58,6 +63,7 @@
 			files = (
 				B6B265882EF964390062B085 /* FirebaseCore in Frameworks */,
 				B6B265862EF964390062B085 /* FirebaseAuth in Frameworks */,
+				B6B2658E2EF964390062B089 /* FirebaseFirestore in Frameworks */,
 				B6B265892EF964390062B086 /* GoogleSignIn in Frameworks */,
 				B6B2658B2EF964390062B087 /* GoogleSignInSwift in Frameworks */,
 			);
@@ -109,6 +115,7 @@
 				21111111111111111111117 /* ChatView.swift */,
 				21111111111111111111118 /* ProfileView.swift */,
 				21111111111111111111119 /* SettingsView.swift */,
+				21111111111111111111124 /* ProfileCompletionView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -125,6 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				2111111111111111111111B /* ChatMessage.swift */,
+				21111111111111111111123 /* User.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -236,6 +244,8 @@
 				1111111111111111111111D /* ChatAPIService.swift in Sources */,
 				1111111111111111111111E /* ChatViewModel.swift in Sources */,
 				1111111111111111111111F /* AuthManager.swift in Sources */,
+				11111111111111111111121 /* User.swift in Sources */,
+				11111111111111111111122 /* ProfileCompletionView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -366,13 +376,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = YesilAI/YesilAI.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = G7YN588RY7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = YesilAI/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "YeşilAI";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -396,13 +410,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = YesilAI/YesilAI.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = G7YN588RY7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = YesilAI/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "YeşilAI";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.lifestyle";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -483,6 +501,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B6B2658D2EF964390062B088 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */;
 			productName = GoogleSignInSwift;
+		};
+		B6B2658F2EF964390062B089 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B6B265842EF964390062B085 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

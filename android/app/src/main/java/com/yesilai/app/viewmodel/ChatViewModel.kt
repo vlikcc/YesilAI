@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
+import com.yesilai.app.data.model.ChatMessage
 import com.yesilai.app.data.repository.ChatRepository
 import com.yesilai.app.dataStore
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,21 +16,10 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import java.util.UUID
 
-data class ChatMessage(
-    val id: Long,
-    val text: String,
-    val sender: String // "user" or "bot"
-)
-
 data class ChatUiState(
-    val messages: List<ChatMessage> = listOf(
-        ChatMessage(
-            id = 1,
-            text = "Merhaba! Bağımlılıkla mücadele yolculuğunda sana destek olmak için buradayım. Nelerden bahsetmek istersin?",
-            sender = "bot"
-        )
-    ),
+    val messages: List<ChatMessage> = emptyList(),
     val isLoading: Boolean = false,
+    val isLoadingHistory: Boolean = true,
     val inputText: String = ""
 )
 
@@ -45,6 +35,32 @@ class ChatViewModel(application: Application) : AndroidViewModel(application) {
     init {
         viewModelScope.launch {
             sessionId = getOrCreateSessionId()
+            loadChatHistory()
+        }
+    }
+    
+    private suspend fun loadChatHistory() {
+        _uiState.value = _uiState.value.copy(isLoadingHistory = true)
+        
+        val history = repository.loadChatHistory()
+        
+        if (history.isEmpty()) {
+            // Add welcome message
+            val welcomeMessage = ChatMessage(
+                id = 1,
+                text = "Merhaba! Bağımlılıkla mücadele yolculuğunda sana destek olmak için buradayım. Nelerden bahsetmek istersin?",
+                sender = ChatMessage.MessageSender.BOT
+            )
+            _uiState.value = _uiState.value.copy(
+                messages = listOf(welcomeMessage),
+                isLoadingHistory = false
+            )
+            repository.saveMessage(welcomeMessage)
+        } else {
+            _uiState.value = _uiState.value.copy(
+                messages = history,
+                isLoadingHistory = false
+            )
         }
     }
     
@@ -76,7 +92,7 @@ class ChatViewModel(application: Application) : AndroidViewModel(application) {
             val userMessage = ChatMessage(
                 id = System.currentTimeMillis(),
                 text = currentMessage,
-                sender = "user"
+                sender = ChatMessage.MessageSender.USER
             )
             
             _uiState.value = _uiState.value.copy(
@@ -84,6 +100,9 @@ class ChatViewModel(application: Application) : AndroidViewModel(application) {
                 inputText = "",
                 isLoading = true
             )
+            
+            // Save user message to Firestore
+            repository.saveMessage(userMessage)
             
             // Send to API
             val result = repository.sendMessage(currentMessage, sessionId)
@@ -102,13 +121,16 @@ class ChatViewModel(application: Application) : AndroidViewModel(application) {
             val botMessage = ChatMessage(
                 id = System.currentTimeMillis() + 1,
                 text = botResponseText,
-                sender = "bot"
+                sender = ChatMessage.MessageSender.BOT
             )
             
             _uiState.value = _uiState.value.copy(
                 messages = _uiState.value.messages + botMessage,
                 isLoading = false
             )
+            
+            // Save bot message to Firestore
+            repository.saveMessage(botMessage)
         }
     }
     
@@ -125,13 +147,31 @@ class ChatViewModel(application: Application) : AndroidViewModel(application) {
             val testResponseMessage = ChatMessage(
                 id = System.currentTimeMillis(),
                 text = "🧪 Webhook Test: $responseText",
-                sender = "bot"
+                sender = ChatMessage.MessageSender.BOT
             )
             
             _uiState.value = _uiState.value.copy(
                 messages = _uiState.value.messages + testResponseMessage,
                 isLoading = false
             )
+            
+            // Save test message to Firestore
+            repository.saveMessage(testResponseMessage)
+        }
+    }
+    
+    fun clearChatHistory() {
+        viewModelScope.launch {
+            repository.clearChatHistory()
+            
+            val welcomeMessage = ChatMessage(
+                id = 1,
+                text = "Merhaba! Bağımlılıkla mücadele yolculuğunda sana destek olmak için buradayım. Nelerden bahsetmek istersin?",
+                sender = ChatMessage.MessageSender.BOT
+            )
+            
+            _uiState.value = _uiState.value.copy(messages = listOf(welcomeMessage))
+            repository.saveMessage(welcomeMessage)
         }
     }
 }

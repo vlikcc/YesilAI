@@ -1,9 +1,12 @@
 package com.yesilai.app.navigation
 
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Chat
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Settings
+import androidx.compose.material.icons.outlined.Chat
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.*
@@ -19,6 +22,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.google.firebase.auth.FirebaseAuth
 import com.yesilai.app.ui.screens.*
 import com.yesilai.app.ui.theme.YesilPrimary
 import com.yesilai.app.ui.theme.YesilTextSecondary
@@ -27,26 +31,29 @@ sealed class Screen(val route: String) {
     object Login : Screen("login")
     object Register : Screen("register")
     object MainTabs : Screen("main_tabs")
+    object ProfileCompletion : Screen("profile_completion")
 }
 
 sealed class TabScreen(
     val route: String,
     val title: String,
-    val selectedIcon: String,
-    val unselectedIcon: String
+    val selectedIcon: ImageVector,
+    val unselectedIcon: ImageVector
 ) {
-    object Chat : TabScreen("chat", "Sohbet", "💬", "💭")
-    object Profile : TabScreen("profile", "Profil", "👤", "👥")
-    object Settings : TabScreen("settings", "Ayarlar", "⚙️", "🔧")
+    object Chat : TabScreen("chat", "Sohbet", Icons.Filled.Chat, Icons.Outlined.Chat)
+    object Profile : TabScreen("profile", "Profil", Icons.Filled.Person, Icons.Outlined.Person)
+    object Settings : TabScreen("settings", "Ayarlar", Icons.Filled.Settings, Icons.Outlined.Settings)
 }
 
 @Composable
 fun AppNavigation() {
     val navController = rememberNavController()
+    val auth = FirebaseAuth.getInstance()
+    val startDestination = if (auth.currentUser != null) Screen.MainTabs.route else Screen.Login.route
     
     NavHost(
         navController = navController,
-        startDestination = Screen.Login.route
+        startDestination = startDestination
     ) {
         composable(Screen.Login.route) {
             LoginScreen(
@@ -55,6 +62,11 @@ fun AppNavigation() {
                 },
                 onNavigateToMain = {
                     navController.navigate(Screen.MainTabs.route) {
+                        popUpTo(Screen.Login.route) { inclusive = true }
+                    }
+                },
+                onNavigateToProfileCompletion = {
+                    navController.navigate(Screen.ProfileCompletion.route) {
                         popUpTo(Screen.Login.route) { inclusive = true }
                     }
                 }
@@ -69,6 +81,16 @@ fun AppNavigation() {
                 onNavigateToMain = {
                     navController.navigate(Screen.MainTabs.route) {
                         popUpTo(Screen.Login.route) { inclusive = true }
+                    }
+                }
+            )
+        }
+        
+        composable(Screen.ProfileCompletion.route) {
+            ProfileCompletionScreen(
+                onNavigateToMain = {
+                    navController.navigate(Screen.MainTabs.route) {
+                        popUpTo(Screen.ProfileCompletion.route) { inclusive = true }
                     }
                 }
             )
@@ -106,9 +128,10 @@ fun MainTabsScreen(onLogout: () -> Unit) {
                     
                     NavigationBarItem(
                         icon = {
-                            Text(
-                                text = if (selected) tab.selectedIcon else tab.unselectedIcon,
-                                fontSize = 24.sp
+                            Icon(
+                                imageVector = if (selected) tab.selectedIcon else tab.unselectedIcon,
+                                contentDescription = tab.title,
+                                modifier = Modifier.size(28.dp)
                             )
                         },
                         label = {
@@ -147,7 +170,7 @@ fun MainTabsScreen(onLogout: () -> Unit) {
                 ChatScreen(onLogout = onLogout)
             }
             composable(TabScreen.Profile.route) {
-                ProfileScreen()
+                ProfileScreen(onLogout = onLogout)
             }
             composable(TabScreen.Settings.route) {
                 SettingsScreen()

@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.yesilai.app.R
 import com.yesilai.app.ui.theme.*
-import com.yesilai.app.viewmodel.ChatMessage
+import com.yesilai.app.data.model.ChatMessage
 import com.yesilai.app.viewmodel.ChatViewModel
 import kotlinx.coroutines.launch
 
@@ -171,7 +171,7 @@ fun ChatScreen(
 
 @Composable
 fun MessageBubble(message: ChatMessage) {
-    val isBot = message.sender == "bot"
+    val isBot = message.sender == ChatMessage.MessageSender.BOT
     
     Row(
         modifier = Modifier

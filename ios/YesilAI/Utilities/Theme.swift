@@ -8,6 +8,7 @@ struct YesilTheme {
     static let surface = Color.white
     static let textPrimary = Color(hex: "1f2937")
     static let textSecondary = Color(hex: "6b7280")
+    static let textPlaceholder = Color(hex: "9ca3af")
     static let botBubble = Color(hex: "d1fae5")
     static let border = Color(hex: "e5e7eb")
     static let error = Color(hex: "dc2626")

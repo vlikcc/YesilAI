@@ -1,4 +1,5 @@
 import SwiftUI
+import FirebaseAuth
 
 struct ContentView: View {
     @StateObject private var navigationManager = NavigationManager()
@@ -12,6 +13,8 @@ struct ContentView: View {
                 RegisterView(navigationManager: navigationManager)
             case .main:
                 MainTabView(navigationManager: navigationManager)
+            case .profileCompletion:
+                ProfileCompletionView(navigationManager: navigationManager)
             }
         }
         .animation(.easeInOut, value: navigationManager.currentScreen)
@@ -23,9 +26,17 @@ class NavigationManager: ObservableObject {
         case login
         case register
         case main
+        case profileCompletion
     }
     
     @Published var currentScreen: Screen = .login
+    
+    init() {
+        // Check if user is already logged in
+        if Auth.auth().currentUser != nil {
+            currentScreen = .main
+        }
+    }
     
     func navigateToLogin() {
         currentScreen = .login
@@ -37,6 +48,10 @@ class NavigationManager: ObservableObject {
     
     func navigateToMain() {
         currentScreen = .main
+    }
+    
+    func navigateToProfileCompletion() {
+        currentScreen = .profileCompletion
     }
 }
 
