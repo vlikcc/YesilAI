@@ -172,7 +172,7 @@ fun ProfileScreen(
                             value = fullName
                         )
                         
-                        HorizontalDivider(
+                        Divider(
                             modifier = Modifier.padding(start = 56.dp),
                             color = YesilBorder
                         )
@@ -185,7 +185,7 @@ fun ProfileScreen(
                         
                         val age = userData["age"] as? Long
                         if (age != null) {
-                            HorizontalDivider(
+                            Divider(
                                 modifier = Modifier.padding(start = 56.dp),
                                 color = YesilBorder
                             )
@@ -198,7 +198,7 @@ fun ProfileScreen(
                         }
                         
                         if (genderDisplay != null) {
-                            HorizontalDivider(
+                            Divider(
                                 modifier = Modifier.padding(start = 56.dp),
                                 color = YesilBorder
                             )
@@ -210,7 +210,7 @@ fun ProfileScreen(
                             )
                         }
                         
-                        HorizontalDivider(
+                        Divider(
                             modifier = Modifier.padding(start = 56.dp),
                             color = YesilBorder
                         )

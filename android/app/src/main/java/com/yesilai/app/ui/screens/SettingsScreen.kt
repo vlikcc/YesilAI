@@ -107,7 +107,7 @@ fun SettingsScreen() {
                         value = "1.0.0"
                     )
                     
-                    HorizontalDivider(
+                    Divider(
                         modifier = Modifier.padding(start = 56.dp),
                         color = YesilBorder
                     )
@@ -121,7 +121,7 @@ fun SettingsScreen() {
                         }
                     )
                     
-                    HorizontalDivider(
+                    Divider(
                         modifier = Modifier.padding(start = 56.dp),
                         color = YesilBorder
                     )

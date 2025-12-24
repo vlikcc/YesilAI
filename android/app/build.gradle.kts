@@ -1,23 +1,44 @@
+import java.util.Properties
+import java.io.FileInputStream
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.gms.google-services")
 }
 
+// Load keystore properties
+val keystorePropertiesFile = rootProject.file("keystore.properties")
+val keystoreProperties = Properties()
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(FileInputStream(keystorePropertiesFile))
+}
+
 android {
     namespace = "com.yesilai.app"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.yesilai.app"
         minSdk = 26
-        targetSdk = 34
-        versionCode = 1
+        targetSdk = 35
+        versionCode = 2
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
+        }
+    }
+
+    signingConfigs {
+        create("release") {
+            if (keystorePropertiesFile.exists()) {
+                storeFile = file(keystoreProperties.getProperty("RELEASE_STORE_FILE"))
+                storePassword = keystoreProperties.getProperty("RELEASE_STORE_PASSWORD")
+                keyAlias = keystoreProperties.getProperty("RELEASE_KEY_ALIAS")
+                keyPassword = keystoreProperties.getProperty("RELEASE_KEY_PASSWORD")
+            }
         }
     }
 
@@ -28,6 +49,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("release")
         }
     }
     compileOptions {
@@ -85,6 +107,13 @@ dependencies {
     // Firebase
     implementation(platform("com.google.firebase:firebase-bom:32.7.0"))
     implementation("com.google.firebase:firebase-auth-ktx")
+    implementation("com.google.firebase:firebase-firestore-ktx")
+    
+    // Coroutines for Firebase (await() support)
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.3")
+    
+    // Image Loading - Coil
+    implementation("io.coil-kt:coil-compose:2.5.0")
     
     // Google Sign-In with Credential Manager
     implementation("com.google.android.gms:play-services-auth:21.0.0")
